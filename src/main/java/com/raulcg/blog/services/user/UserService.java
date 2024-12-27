@@ -6,9 +6,11 @@ import com.raulcg.blog.models.User;
 import com.raulcg.blog.repositories.UserRepository;
 import com.raulcg.blog.request.SignupRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UserService implements IUserService {
 
     @Autowired
