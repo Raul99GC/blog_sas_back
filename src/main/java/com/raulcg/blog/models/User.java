@@ -20,7 +20,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @NoArgsConstructor
 public class User {
 
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -46,5 +46,16 @@ public class User {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public User(String userName, String email, String password) {
+        this.username = userName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String userName, String email) {
+        this.username = userName;
+        this.email = email;
+    }
 
 }
