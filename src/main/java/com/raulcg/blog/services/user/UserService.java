@@ -9,6 +9,7 @@ import com.raulcg.blog.repositories.RoleRepository;
 import com.raulcg.blog.repositories.UserRepository;
 import com.raulcg.blog.request.SignupRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,6 +23,9 @@ public class UserService implements IUserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @Override
     public User registerUser(SignupRequest signupRequest) {
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
@@ -32,7 +36,7 @@ public class UserService implements IUserService {
 
         Role role = roleRepository.findByRoleName(UserRole.ROLE_COSTUMER).orElseThrow(() -> new RuntimeException("Role not found"));
 
-        User newUser = new User(signupRequest.getUsername(), signupRequest.getEmail(), signupRequest.getPassword());
+        User newUser = new User(signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
         newUser.setFirstName(signupRequest.getFirstName());
         newUser.setLastName(signupRequest.getLastName());
         newUser.setProfileImage(signupRequest.getProfileImage());
