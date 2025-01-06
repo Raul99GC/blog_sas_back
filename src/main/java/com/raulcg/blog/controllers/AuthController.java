@@ -92,7 +92,7 @@ public class AuthController {
     public ResponseEntity<?> refreshToken(@RequestParam String refreshToken) {
         String jwtToken = jwtUtils.generateTokenFromRefreshToken(refreshToken);
         Map<String, String> res = new HashMap<>();
-        res.put("access_token", jwtToken);
+        res.put("accessToken", jwtToken);
         res.put("expires_in", "7200");
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
