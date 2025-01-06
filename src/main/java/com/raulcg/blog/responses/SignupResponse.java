@@ -1,4 +1,4 @@
-package com.raulcg.blog;
+package com.raulcg.blog.responses;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
