@@ -30,13 +30,13 @@ public class UserService implements IUserService {
     public User registerUser(SignupRequest signupRequest) {
         if (userRepository.existsByEmail(signupRequest.getEmail())) {
             throw new EmailAlreadyExistsException("Email already taken");
-        } else if (userRepository.existsByUsername(signupRequest.getUsername())) {
+        } else if (userRepository.existsByUsername(signupRequest.getUserName())) {
             throw new UsernameAlreadyExistsException("Username already taken");
         }
 
         Role role = roleRepository.findByRoleName(UserRole.ROLE_COSTUMER).orElseThrow(() -> new RuntimeException("Role not found"));
 
-        User newUser = new User(signupRequest.getUsername(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
+        User newUser = new User(signupRequest.getUserName(), signupRequest.getEmail(), passwordEncoder.encode(signupRequest.getPassword()));
         newUser.setFirstName(signupRequest.getFirstName());
         newUser.setLastName(signupRequest.getLastName());
         newUser.setProfileImage(signupRequest.getProfileImage());
