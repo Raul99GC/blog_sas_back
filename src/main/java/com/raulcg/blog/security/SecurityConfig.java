@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -44,6 +46,13 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
+    }
+
+    // ? Crea un bean del tipo AuthenticationManager para que esté disponible en el contexto de Spring y pueda ser utilizado en otros lugares de tu aplicación.
+    // ? Se utiliza para gestionar el proceso de autenticación en la aplicación.
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
+        return auth.getAuthenticationManager();
     }
 
     @Bean
