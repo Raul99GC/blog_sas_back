@@ -1,8 +1,8 @@
 package com.raulcg.blog.controllers;
 
-import com.raulcg.blog.SignupResponse;
 import com.raulcg.blog.models.User;
 import com.raulcg.blog.request.SignupRequest;
+import com.raulcg.blog.responses.SignupResponse;
 import com.raulcg.blog.security.jwt.JwtUtils;
 import com.raulcg.blog.security.services.UserDetailsImpl;
 import com.raulcg.blog.security.services.UserDetailsServiceImpl;
@@ -53,5 +53,4 @@ public class AuthController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
-
 }
