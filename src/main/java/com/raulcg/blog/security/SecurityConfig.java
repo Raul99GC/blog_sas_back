@@ -3,6 +3,7 @@ package com.raulcg.blog.security;
 import com.raulcg.blog.UserRole;
 import com.raulcg.blog.models.Role;
 import com.raulcg.blog.repositories.RoleRepository;
+import com.raulcg.blog.security.jwt.AuthEntryPointJwt;
 import com.raulcg.blog.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +30,9 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -42,6 +46,8 @@ public class SecurityConfig {
         );
 
         http.addFilterBefore(authJwtTokenFilter, BasicAuthenticationFilter.class);
+
+        http.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler));
 
         http.csrf(AbstractHttpConfigurer::disable);
 
